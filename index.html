@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        class Note {
+            constructor($note) {
+                this.$note = $note;
+            }
+
+            highlight() {
+                this.$note.css('color', 'white');
+            }
+
+            restore() {
+                this.$note.css('color', this.$note.attr('data-color'));
+            }
+
+            save() {
+                this.$note.attr('data-color', this.$note.css('color'));
+            }
+
+            position() {
+                return this.$note.position();
+            }
+
+            width() {
+                return this.$note.width();
+            }
+
+            height() {
+                return this.$note.height();
+            }
+
+            get $element() {
+                return this.$note;
+            }
+        }
+        class NotesCollection extends Array {
+            constructor($notes) {
+                super();
+
+                $notes.get().forEach((note, index) => {
+                    this.push(new Note($(note)));
+                });
+            }
+
+            getNoteByPosition(p) {
+                return this[p + 1];
+            }
+        }
+
+        class Marcador {
+
+            constructor($marcador) {
+                this.$marcador = $marcador;
+                this.note = null;
+            }
+
+            move(note) {
+                const position = note.position();
+                const w = note.width();
+                const h = note.height();
+
+                this.$marcador.css('top', position.top - 2).css('left', position.left - 10);
+                this.$marcador.css('width', w).css('height', h);
+
+                note.save();
+                setTimeout(() => {
+                    note.highlight();
+                }, 200);
+
+                if(this.note){
+                    this.note.restore();
+                }
+
+                this.note = note;
+            }
+        }
+
+        $(() => {
+            const marcador = new Marcador($('.marcador'));
+            const notes = new NotesCollection($('b'));
+            let pos = 1;
+
+            marcador.move(notes.getNoteByPosition(pos));
+
+            setInterval(() => {
+                // marcador.move(notes.getNoteByPosition(Math.floor(Math.random() * (10))));
+                marcador.move(notes.getNoteByPosition(++pos));
+            }, 2000);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="marcador"></div>
+    <pre>[Intro] <b>Bm7</b>  <b>A/C#</b>  <b>G2</b>
+
+        <span class="tablatura">[Tab - Intro]
+        
+            <b>Bm7</b>         <b>A/C#</b>        <b>G2</b>
+        <span class="cnt">E|------------------------------------------|
+        B|--3-----3-----5-----5-----3---------------|
+        G|--2-----2-----2-----2-----2---------------|
+        D|------------------------------------------|
+        A|--2-----------4---------------------------|
+        E|--------------------------3---------------|</span></span>
+        
+        [Primeira Parte]
+        
+        <b>Bm7</b>                  <b class="js-modal-trigger">A/C#</b>
+            Junto ao poço estava eu
+         <b>G2</b>
+        Quando um homem judeu
+               <b>Bm7</b>        <b>A/C#</b>      <b>G2</b>
+        Viu a sede que havia em mim
+        <b>Bm7</b>                
+            Sem me ouvir  
+         <b>A/C#</b>    <b>G</b>
+        Conheceu e me ofereceu
+            <b>Bm7</b>       <b>A/C#</b>         <b>G2</b>
+        Uma água que jorra sem fim
+        
+        [Pré-Refrão]
+        
+        <span class="tablatura">[Tab - Pré-Refrão]
+        
+            <b>Em7</b>           <b>D/F#</b>        <b>G9</b>
+        <span class="cnt">E|------------------------------------------|
+        B|--------3---------------3---0----3--------|
+        G|------0-------------2-------2----2--------|
+        D|----2-------------0-----------------------|
+        A|------------------------------------------|
+        E|--0-------------2-----------3-------------|</span></span>
+        
+         <b>Em7</b>                       <b>D/F#</b>
+        Dá-me de beber pois tenho sede
+                        <b>G9</b>                
+        Não quero mais buscar em outras 
+               <b>D/F#</b>
+        Fontes
+         <b>Em7</b>                    <b>D/F#</b>                       
+        Não precisarei aqui voltar 
+                           <b>G9</b>
+        Pra minha sede saciar 
+             <b>G9</b>              <b>A</b>
+        Uma vez que eu já ouvi teu falar
+        
+        [Refrão]
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                             <b>Em7</b>
+        A fonte da vida que me encontrou
+                                             
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>
+        O Messias, o meu Salvador
+        
+        ( <b>Bm7</b>  <b>A/C#</b>  <b>G</b>  <b>Em7</b> )
+        ( <b>Bm7</b>  <b>A/C#</b>  <b>G</b> )
+        
+        [Primeira Parte]
+        
+        <b>Bm7</b>                <b>A/C#</b>
+            Junto ao poço estava eu
+         <b>G</b>
+        Quando um homem judeu
+               <b>Bm7</b>        <b>A/C#</b>      <b>G</b>
+        Viu a sede que havia em mim
+        <b>Bm7</b>              
+            Sem me ouvir  
+         <b>A/C#</b>    <b>G</b>
+        Conheceu e me ofereceu
+            <b>Bm7</b>       <b>A/C#</b>         <b>G</b>
+        Uma água que jorra sem fim
+        
+        [Pré-Refrão]
+        
+         <b>Em7</b>                       <b>D/F#</b>
+        Dá-me de beber pois tenho sede
+                           <b>G</b>                
+        Não quero mais buscar em outras 
+               <b>D/F#</b>
+        Fontes
+         <b>Em7</b>                    <b>D/F#</b>                     
+        Não precisarei aqui voltar 
+                            <b>G</b>
+        Pra minha  sede saciar
+                             <b>A</b>
+        Uma vez que eu já ouvi teu falar
+        
+        [Refrão]
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>Em7</b>
+        A fonte da vida que me encontrou
+                                             
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>
+        O Messias, o meu Salvador
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>Em7</b>
+        A fonte da vida que me encontrou
+                                             
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>
+        O Messias, o meu Salvador
+        
+        [Pré-Refrão]
+        
+         <b>Em7</b>                       <b>D/F#</b>
+        Dá-me de beber pois tenho sede
+                           <b>G</b>                
+        Não quero mais buscar em outras 
+               <b>D/F#</b>
+        Fontes
+         <b>Em7</b>                    <b>D/F#</b>                     
+        Não precisarei aqui voltar 
+                            <b>G</b>
+        Pra minha  sede saciar
+                             <b>A</b>
+        Uma vez que eu já ouvi teu falar
+        
+         <b>Em7</b>                       <b>D/F#</b>
+        Dá-me de beber pois tenho sede
+                           <b>G</b>                
+        Não quero mais buscar em outras 
+               <b>D/F#</b>
+        Fontes
+         <b>Em7</b>                    <b>D/F#</b>                     
+        Não precisarei aqui voltar 
+                            <b>G</b>
+        Pra minha  sede saciar
+                             <b>A</b>
+        Uma vez que eu já ouvi teu falar
+        
+        [Refrão]
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>Em7</b>
+        A fonte da vida que me encontrou
+                                             
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>
+        O Messias, o meu Salvador
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>Em7</b>
+        A fonte da vida que me encontrou
+                                             
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>
+        O Messias, o meu Salvador
+        
+        [Segunda Parte]
+        
+          <b>D</b>                            <b>D/F#</b>
+        Quero beber do teu rio, Senhor
+           <b>G</b>         <b>D/F#</b>         <b>Em7</b>      <b>A</b>
+        Sacia minha sede, lava o meu interior
+             <b>Bm7</b>               <b>G</b>     <b>A</b>
+        Eu quero fluir em tuas águas
+             <b>Bm7</b>               <b>G</b>
+        Eu quero beber da tua fonte
+                        <b>A4</b>   <b>A</b>
+        Fonte de águas vivas
+        
+          <b>D</b>                            <b>D/F#</b>
+        Quero beber do teu rio, Senhor
+           <b>G</b>         <b>D/F#</b>         <b>Em7</b>      <b>A</b>
+        Sacia minha sede, lava o meu interior
+             <b>Bm7</b>               <b>G</b>     <b>A</b>
+        Eu quero fluir em tuas águas
+             <b>Bm7</b>               <b>G</b>
+        Eu quero beber da tua fonte
+                        <b>A4</b>   <b>A</b>
+        Fonte de águas vivas
+        
+        [Refrão Final]
+        
+           <b>D</b>                             <b>C</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>G</b>
+        A fonte da vida que me encontrou
+                                         
+        És o Dom de Deus 
+              <b>Bb</b>          <b>A</b>
+        O Messias, o meu Salvador
+        
+           <b>D</b>                              <b>C</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>G</b>
+        A fonte da vida que me encontrou
+                                         
+        És o Dom de Deus 
+              <b>Bb</b>          <b>A</b>
+        O Messias, o meu Salvador
+        
+           <b>D</b>                             <b>G</b>
+        Tu és, por quem a minh'alma esperou
+                              <b>Em7</b>
+        A fonte da vida que me encontrou
+                                            
+        És o Dom de Deus 
+              <b>G</b>           <b>A</b>       <b>D</b>
+        O Messias, o meu Salvador</pre>
+</body>
+
+</html>
