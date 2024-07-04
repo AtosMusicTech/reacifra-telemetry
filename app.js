@@ -14,7 +14,7 @@ socketServer.onRemoveClient(client => {
 })
 
 socketServer.onMessage((message, client) => {
-    clientes.sendAll(message);
+    clientes.sendAll(message, client);
 })
 
 socketServer.listen();

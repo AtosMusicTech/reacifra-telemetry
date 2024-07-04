@@ -11,8 +11,11 @@ class ClientCollection {
         this.clients.splice(this.clients.indexOf(client), 1);
     }
 
-    sendAll(msg) {
+    sendAll(msg, except = null) {
         this.clients.forEach((client) => {
+            if(client === except) {
+                return;
+            }
             client.send(msg);
         });
     }

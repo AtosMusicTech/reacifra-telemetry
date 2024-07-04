@@ -35,7 +35,11 @@ class WebSocketServer {
             // Recebe mensagens do cliente
             socket.on('message', message => {
                 if (this.fnMessage) {
-                    this.fnMessage(message, client);
+                    try {
+                        this.fnMessage(JSON.parse(message), client);
+                    } catch (error) {
+                        
+                    }
                 }
             });
 
