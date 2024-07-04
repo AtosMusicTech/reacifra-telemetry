@@ -20,6 +20,10 @@ class WebSocketServer {
         this.fnRemoveClient = fn;
     }
 
+    onMessage(fn) {
+        this.fnMessage = fn;
+    }
+
     listen() {
         this.server.on('connection', socket => {
             const client = new SocketClient(socket);
@@ -30,12 +34,14 @@ class WebSocketServer {
 
             // Recebe mensagens do cliente
             socket.on('message', message => {
-
+                if (this.fnMessage) {
+                    this.fnMessage(message, client);
+                }
             });
 
             // Lida com a desconexão do cliente
             socket.on('close', () => {
-                if(this.fnRemoveClient){
+                if (this.fnRemoveClient) {
                     this.fnRemoveClient(client);
                 }
             });
